@@ -1,14 +1,17 @@
-# Rest Project + TypeScript
+# Queue Management App:(Customer Service)  Rest API + WebSockets
 
-Este proyecto previamente inicializado tiene todo lo necesario para trabajar con TypeScript, Express y Rest.
+## Main features:
 
-Cada paso de su configuración ya se ha realizado previamente en el curso, por lo que solo es necesario clonar el proyecto y comenzar a trabajar.
+    * Websockets
+    * Restful API
+    * Connecting WebSockets with Restful API
+    * Services
+    * Related logic for smooth operation: Ticket Service, Ticket System, Routes,    Desktop Dysplay/Public Display.
 
+## Installation
 
-## Instalación
-
-1. Clonar .env.template a .env y configurar las variables de entorno
-2. Ejecutar `npm install` para instalar las dependencias
-3. En caso de necesitar base de datos, configurar el docker-compose.yml y ejecutar `docker-compose up -d` para levantar los servicios deseados.
-4. Ejecutar `npm run dev` para levantar el proyecto en modo desarrollo
+1. Clone ```.env.template``` to ```.env```file and configure the environment variables.
+2. Run ```npm install``` to install the dependencies.
+3. If a database is required, configure the ```docker-compose.yml``` file and run ```docker-compose up -d``` to start the desired services.
+4. Run ```npm run dev``` to start the project in development mode.
 
