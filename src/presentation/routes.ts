@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { TicketsRoutes } from './tickets/routes';
 
 
 
@@ -10,8 +11,8 @@ export class AppRoutes {
 
     const router = Router();
     
-    // Definir las rutas
-    // router.use('/api/todos', /*TodoRoutes.routes */ );
+    // Definition routes
+     router.use('/api/tickets', TicketsRoutes.routes );
 
 
 
