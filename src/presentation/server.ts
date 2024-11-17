@@ -1,3 +1,4 @@
+
 import express, { Router } from 'express';
 import path from 'path';
 
@@ -21,14 +22,11 @@ export class Server {
     this.port = port;
     this.publicPath = public_path;
     this.routes = routes;
+    this.config();
   }
 
-  
-  
-  async start() {
-    
-
-    //* Middlewares
+  private config(){
+       //* Middlewares
     this.app.use( express.json() ); // raw
     this.app.use( express.urlencoded({ extended: true }) ); // x-www-form-urlencoded
 
@@ -38,21 +36,24 @@ export class Server {
     //* Routes
     this.app.use( this.routes );
 
-    //* SPA /^\/(?!api).*/  <== Únicamente si no empieza con la palabra api
-    this.app.get('*', (req, res) => {
+    //* SPA /^\/(?!api).*/  <== if the ruote does not start with "api"
+    this.app.get( /^\/(?!api).*/ , (req, res) => {
       const indexPath = path.join( __dirname + `../../../${ this.publicPath }/index.html` );
       res.sendFile(indexPath);
     });
-    
+  };
+  
+  // to initialise the server
+  async start() {
 
     this.serverListener = this.app.listen(this.port, () => {
       console.log(`Server running on port ${ this.port }`);
     });
 
-  }
+  };
 
   public close() {
     this.serverListener?.close();
-  }
+  };
 
-}
+};

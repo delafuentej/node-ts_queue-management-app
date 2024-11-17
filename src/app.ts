@@ -1,12 +1,13 @@
+import { createServer } from 'http';
 import { envs } from './config/envs';
-import { AppRoutes } from './presentation/routes';
-import { Server } from './presentation/server';
+import { Server, AppRoutes, WssService } from './presentation';
 
+
+const PORT = envs.PORT;
 
 (async()=> {
   main();
 })();
-
 
 function main() {
 
@@ -15,5 +16,18 @@ function main() {
     routes: AppRoutes.routes,
   });
 
-  server.start();
+  const httpServer = createServer(server.app);
+
+  WssService.initWebSocketServer({
+    server: httpServer,
+    path: '/ws',
+  })
+
+  httpServer.listen(PORT, ()=> {
+    console.log(`Server listen on PORT: ${PORT}`)
+  })
+
+
+  //express server
+  //server.start();
 }
