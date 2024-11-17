@@ -13,7 +13,7 @@ function main() {
 
   const server = new Server({
     port: envs.PORT,
-    routes: AppRoutes.routes,
+   // routes: AppRoutes.routes,
   });
 
   const httpServer = createServer(server.app);
@@ -22,6 +22,9 @@ function main() {
     server: httpServer,
     path: '/ws',
   })
+  //to be able to work with the routes 
+  //once the websocket server has been initialised: 
+  server.setRoutes(AppRoutes.routes);
 
   httpServer.listen(PORT, ()=> {
     console.log(`Server listen on PORT: ${PORT}`)

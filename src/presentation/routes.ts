@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { TicketsRoutes } from './tickets/routes';
 
-
+  
 
 
 export class AppRoutes {
