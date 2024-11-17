@@ -21,8 +21,8 @@ export class TicketsController {
     public getDrawTicket= async(req: Request, res: Response) => {
         res.json('getDrawTicket');
     };
-    public getOnWorkingTickets= async(req: Request, res: Response) => {
-        res.json('getOnWorkingTickets');
+    public getWorkingOnTickets= async(req: Request, res: Response) => {
+        res.json('getWorkingOnTickets');
     };
 
     public createTicket = async(req: Request, res: Response) => {

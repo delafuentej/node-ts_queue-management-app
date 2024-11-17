@@ -19,7 +19,7 @@ export class TicketsRoutes {
         router.get('/last',ticketsController.getLastTicketNumber);//to obtain the last ticket
         router.get('/pending', ticketsController.getPendingTickets)// to obtain the pending tickets
         router.get('/draw/:desk',ticketsController.getDrawTicket) //'/draw/:desk' => to get a ticket and assign it to a specific desk
-        router.get('/working-on', ticketsController.getOnWorkingTickets) // to display the tickets currently being worked on.
+        router.get('/working-on', ticketsController.getWorkingOnTickets) // to display the tickets currently being worked on.
         //post
         router.post('/',ticketsController.createTicket)// to create a new ticket
         // put
