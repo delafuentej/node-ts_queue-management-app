@@ -3,7 +3,7 @@ import { UuidAdapter } from "../../config/uuid.adapter"
 
 export class TicketService {
     //TicketService class => target: controll all other services
-   private readonly tickets: Ticket[] = [
+   public readonly tickets: Ticket[] = [
     {
         id: UuidAdapter.uuid(),
         number: 1,
@@ -51,14 +51,14 @@ export class TicketService {
    public get lastWorkingOnTickets(): Ticket[]{
         return this.workingOnTickets.splice(0,4);
    }
-   public lastTicketNumber(): number { //with filter: Math.max(ticket.number)
+   public get lastTicketNumber(): number { //with filter: Math.max(ticket.number)
      return (this.tickets.length > 0) ? this.tickets.at(-1)!.number : 0;
    };
 
    public createTicket(): Ticket{
         const newTicket: Ticket = {
             id: UuidAdapter.uuid(),
-            number: this.lastTicketNumber() + 1,
+            number: this.lastTicketNumber + 1,
             createAt: new Date(),
             done:false,
             handleAt: undefined,
