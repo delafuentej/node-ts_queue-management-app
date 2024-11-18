@@ -9,7 +9,7 @@ function renderTickets(tickets=[]){
 
         const ticket = tickets[i]; 
         if(!ticket) break;
-
+    
         const ticketLabel = document.querySelector(`#lbl-ticket-0${i +1}`);
         const deskLabel = document.querySelector(`#lbl-desk-0${i +1}`);
 
@@ -29,4 +29,35 @@ async function loadCurrentTickets(){
     renderTickets(onWorkingTickets);
 }
 
-loadCurrentTickets()
+
+function connetToWebSocketServer(){
+   
+    socket = new WebSocket('ws://localhost:3000/ws');
+
+    socket.onopen= (event) =>{
+        console.log('Connected!!!');
+    }
+
+    socket.onmessage = ( event ) => {
+    
+        const {type, payload }= JSON.parse(event.data);//pendingTicketsCount
+       if(type !=='on-working-changed') return;
+        
+       renderTickets(payload);
+      };
+
+    socket.onclose= (event) =>{
+        
+      console.log('Disconnected!!!');
+      setTimeout(()=>{
+        console.log( 'retrying to connect' );
+          connetToWebSocketServer();
+      },1500);
+  }
+
+}
+
+
+
+loadCurrentTickets();
+connetToWebSocketServer();
