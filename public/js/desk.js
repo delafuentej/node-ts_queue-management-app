@@ -1,8 +1,15 @@
 
 let socket = null;
+let workingTicket= null;
+
 const labelPendingTickets = document.querySelector('#lbl-pending')
-const desk = document.querySelector('.desk');
+const deskHeader = document.querySelector('.desk');
 const alert = document.querySelector('.alert');
+
+const drawBtn = document.querySelector('#btn-draw');
+const doneBtn = document.querySelector('#btn-done');
+
+const currentTicketLabel = document.querySelector('small');
 
 
 const searchParams = new URLSearchParams( window.location.search);
@@ -15,7 +22,7 @@ if( !searchParams.has('desk')){
 const deskNumber = searchParams.get('desk');
 const deskNumberLabel = deskNumber.charAt(0).toUpperCase() + deskNumber.slice(1).toLowerCase();
 
-desk.innerHTML= deskNumberLabel;
+deskHeader.innerHTML= deskNumberLabel;
 
 
 function checkTicketCount(currentCount= 0){
@@ -39,9 +46,21 @@ async function loadPendingTicketsCount (){
     //labelPendingTickets.innerText = pendingTicketsCount;
 }
 
-loadPendingTicketsCount();
+async function getTicket(){
+  const {status, message, ticket} = await fetch(`/api/tickets/draw/${deskNumber}`)
+  .then( res => res.json());
 
+  //console.log({status, message, ticket});
 
+  if(status === 'error'){
+    currentTicketLabel.innerText = message;
+    return;
+  }
+   workingTicket = ticket;
+   console.log('workingTicket',workingTicket)
+   currentTicketLabel.innerText = ticket.number;
+  
+}
 
 function connetToWebSocketServer(){
    
@@ -70,4 +89,8 @@ function connetToWebSocketServer(){
 
 }
 
+//listeners
+drawBtn.addEventListener('click', getTicket)
+//
+loadPendingTicketsCount();
 connetToWebSocketServer();

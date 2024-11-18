@@ -54,7 +54,7 @@ export class TicketService {
    private readonly workingOnTickets: Ticket[]= [];
 
    public get pendingTickets(): Ticket[]{
-        return this.tickets.filter( ticket => ticket.done === false);
+        return this.tickets.filter( ticket => !ticket.handleAtDesk);
    };
 
    public get lastWorkingOnTickets(): Ticket[]{
@@ -89,8 +89,8 @@ export class TicketService {
         ticket.handleAt = new Date();
         //
         this.workingOnTickets.unshift({...ticket});
-
-         //! Pending: Connection with ws
+        this.onTicketNumberChanged();
+         
         return {
             status: 'ok',
             ticket: ticket,
@@ -115,6 +115,10 @@ export class TicketService {
 
    private onTicketNumberChanged(){
         this.wssService.sendMessage('on-ticket-count-changed', this.pendingTickets.length);
+   };
+
+   private onWorkingOnChanged(){
+    this.wssService.sendMessage('on-working-changed', this.lastWorkingOnTickets);
    }
 
 
