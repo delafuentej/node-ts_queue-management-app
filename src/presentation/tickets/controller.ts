@@ -8,7 +8,7 @@ export class TicketsController {
     //DI WssService => to be able to send communication via websockets from rest api
     constructor(
        private readonly ticketService: TicketService = new TicketService(),
-    ){};
+    ){};   
 
     public getAllTickets = async(req: Request, res: Response) => {
        res.json(this.ticketService.tickets);
