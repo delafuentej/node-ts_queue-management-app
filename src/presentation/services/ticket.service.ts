@@ -1,7 +1,16 @@
-import { Ticket } from "../../domain"
-import { UuidAdapter } from "../../config/uuid.adapter"
+
+import { Ticket } from "../../domain";
+import { UuidAdapter } from "../../config/uuid.adapter";
+import { WssService } from "./wss.service";
+
+
+
 
 export class TicketService {
+
+    constructor(
+        private readonly wssService: WssService= WssService.instance,
+    ){}
     //TicketService class => target: controll all other services
    public readonly tickets: Ticket[] = [
     {
@@ -68,6 +77,7 @@ export class TicketService {
 
         this.tickets.push(newTicket);
         //! Pending: Connection with ws
+        this.onTicketNumberChanged();
         return newTicket;
    };
 
@@ -100,9 +110,11 @@ export class TicketService {
         });
         return {
             status: 'ok',
-           
         };
+   };
 
+   private onTicketNumberChanged(){
+        this.wssService.sendMessage('on-ticket-count-changed', this.pendingTickets.length);
    }
 
 
