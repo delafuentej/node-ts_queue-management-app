@@ -12,7 +12,7 @@ export class TicketService {
         private readonly wssService: WssService= WssService.instance,
     ){}
     //TicketService class => target: controll all other services
-   public readonly tickets: Ticket[] = [
+   public tickets: Ticket[] = [
     {
         id: UuidAdapter.uuid(),
         number: 1,
@@ -98,19 +98,20 @@ export class TicketService {
    };
 
    public doneTicket(id: string){
-        const ticket = this.tickets.find( ticket => ticket.id === id);
+
+        const ticket = this.tickets.find( t => t.id === id);
+
         if(!ticket) return {status: 'error', message: `No ticket found with id:${id}`};
 
-        this.tickets.map( ticket =>{
+        this.tickets = this.tickets.map( (ticket) =>{
+
             if(ticket.id === id){
                 ticket.done = true,
                 ticket.doneAt = new Date
-            };
+            }
             return ticket;
-        });
-        return {
-            status: 'ok',
-        };
+        })
+       return {status: 'ok'};
    };
 
    private onTicketNumberChanged(){

@@ -9,7 +9,7 @@ const alert = document.querySelector('.alert');
 const drawBtn = document.querySelector('#btn-draw');
 const doneBtn = document.querySelector('#btn-done');
 
-const currentTicketLabel = document.querySelector('small');
+let currentTicketLabel = document.querySelector('small');
 
 
 const searchParams = new URLSearchParams( window.location.search);
@@ -47,6 +47,8 @@ async function loadPendingTicketsCount (){
 }
 
 async function getTicket(){
+  await doneTicket();
+
   const {status, message, ticket} = await fetch(`/api/tickets/draw/${deskNumber}`)
   .then( res => res.json());
 
@@ -62,6 +64,19 @@ async function getTicket(){
   
 }
 
+async function doneTicket(){
+  if(!workingTicket) return;
+
+  const {status, message} = await fetch(`/api/tickets/done/${workingTicket.id}`,{
+    method: 'PUT'
+  }).then( res => res.json());
+  console.log('status',status)
+  if(status === 'ok'){
+    workingTicket = null;
+    currentTicketLabel.innerText = 'Nobody';
+  }
+
+}
 function connetToWebSocketServer(){
    
     socket = new WebSocket('ws://localhost:3000/ws');
@@ -90,7 +105,8 @@ function connetToWebSocketServer(){
 }
 
 //listeners
-drawBtn.addEventListener('click', getTicket)
+drawBtn.addEventListener('click', getTicket);
+doneBtn.addEventListener('click', doneTicket);
 //
 loadPendingTicketsCount();
 connetToWebSocketServer();
