@@ -58,7 +58,7 @@ export class TicketService {
    };
 
    public get lastWorkingOnTickets(): Ticket[]{
-        return this.workingOnTickets.splice(0,4);
+        return this.workingOnTickets.slice(0,4);
    }
    public get lastTicketNumber(): number { //with filter: Math.max(ticket.number)
      return (this.tickets.length > 0) ? this.tickets.at(-1)!.number : 0;
@@ -76,7 +76,7 @@ export class TicketService {
         };
 
         this.tickets.push(newTicket);
-        //! Pending: Connection with ws
+        //: Connection with ws
         this.onTicketNumberChanged();
         return newTicket;
    };
