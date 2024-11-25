@@ -8,31 +8,33 @@
     <title>Queuing Program</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="styles.css" rel="stylesheet">
 </head>
 
-<body class="container">
-    <h1 class="mt-5">Queuing Programme</h1>
+<body class="container d-flex justify-content-center align-items-center flex-column bg-info-subtle bg-gradient">
+    <h1 class="mt-5 mb-5">Queuing Programme</h1>
+    <h2 class="mt-5">Select from the following screens:</h2>
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="d-flex mb-3 d-flex justify-content-center align-items-center">
 
-    <div class="row">
-        <div class="col-6">
-
-            <a class="btn btn-primary" href="public.html">Public Screen</a>
-            <a class="btn btn-secondary" href="new-ticket.html">Create Tickets</a>
+            <a class="btn btn-primary mx-3" href="public.html">Public Screen</a>
+            <a class="btn btn-success" href="new-ticket.html">Create Tickets</a>
 
         </div>
 
-        <div class="col-6">
-            <form action="desk.html">
+        <div class="d-flex justify-content-center align-items-center flex-column">
+            <h2 class="mt-5 mb-3">Login:Enter your Desk Number</h2>
+            <form class= "d-flex" action="desk.html">
 
                 <input name="desk" 
                        type="text" 
-                       class="form-control" 
+                       class="form-control w-auto text-center" 
                        placeholder="Introduce Desk Number: e.g.'Desk 1'" 
                        autofocus 
                        required>
 
                 <br>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary mx-3">
                     Login
                 </button>
             </form>
